@@ -1,0 +1,39 @@
+Morning,Kacper,Gym,Working/Training
+Morning,Ken,Police Station,Patrolling Village
+Morning,George,Shop,Opening Shop
+Morning,Jack,Café,Serving Customers
+Morning,Dom,Pond,Cleaning Pond Area
+Morning,Will,Library,Organising Books
+Morning,Alex,Alex's House,Caring for Pets
+
+Noon,Kacper,Gym,Training Clients
+Noon,Ken,Police Station,Paperwork at Station
+Noon,George,Shop,Assisting Customers
+Noon,Jack,Café,Preparing Lunch
+Noon,Dom,Pond,Monitoring Wildlife
+Noon,Will,Library,Researching
+Noon,Alex,Alex's House,Showing Collection to Visitors
+
+Afternoon,Kacper,Gym,In a Meeting
+Afternoon,Ken,Police Station,Community Outreach
+Afternoon,George,Shop,Stocking Shelves
+Afternoon,Jack,Café,Cleaning Up
+Afternoon,Dom,Pond,Taking a Break Near Pond
+Afternoon,Will,Library,Reading
+Afternoon,Alex,Alex's House,Maintaining Pet Habitats
+
+Evening,Kacper,Gym,Closing Gym
+Evening,Ken,Police Station,Patrolling Village
+Evening,George,Shop,Closing Shop
+Evening,Jack,Café,Closing Café
+Evening,Dom,Pond,Observing Pond Life
+Evening,Will,Library,Cataloging Books
+Evening,Alex,Alex's House,Feeding Pets
+
+Night,Kacper,Home,At Home
+Night,Ken,Police Station,Responding to Emergency (Not at Station)
+Night,George,Home,At Home
+Night,Jack,Home,At Home
+Night,Dom,Pond,Witnessing the Murder
+Night,Will,Home,At Home
+Night,Alex,Pond,Committing the Murder at Pond

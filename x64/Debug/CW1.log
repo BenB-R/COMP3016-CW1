@@ -1,0 +1,7 @@
+﻿  Game.cpp
+  main.cpp
+  ScreenManager.cpp
+C:\Users\benri\source\repos\CW1\ScreenManager.cpp(7,29): error C3861: 'LoadTexture': identifier not found
+C:\Users\benri\source\repos\CW1\ScreenManager.cpp(11,29): error C3861: 'LoadTexture': identifier not found
+C:\Users\benri\source\repos\CW1\ScreenManager.cpp(15,38): error C3861: 'LoadTexture': identifier not found
+  Generating Code...

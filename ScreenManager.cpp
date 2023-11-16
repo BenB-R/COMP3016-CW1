@@ -1,18 +1,19 @@
 #include "ScreenManager.h"
+#include "TextureManager.h"
 
 ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen(nullptr) {
     // Create screens for Cafe, Pond, Police Station
     Screen cafeScreen;
     cafeScreen.name = "Cafe";
-    cafeScreen.background = LoadTexture("path/to/cafe_image.png", renderer);
+    cafeScreen.background = TextureManager::LoadTexture("path/to/cafe_image.png", renderer); // Corrected
 
     Screen pondScreen;
     pondScreen.name = "Pond";
-    pondScreen.background = LoadTexture("path/to/pond_image.png", renderer);
+    pondScreen.background = TextureManager::LoadTexture("path/to/pond_image.png", renderer); // Corrected
 
     Screen policeStationScreen;
     policeStationScreen.name = "Police Station";
-    policeStationScreen.background = LoadTexture("path/to/police_station_image.png", renderer);
+    policeStationScreen.background = TextureManager::LoadTexture("path/to/police_station_image.png", renderer);
 
     // Store screens in a container if needed
     std::vector<Screen> screens = { cafeScreen, pondScreen, policeStationScreen };

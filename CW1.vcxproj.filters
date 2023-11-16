@@ -47,4 +47,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Backgrounds\cafe_image.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\pond_image.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\police_station_image.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

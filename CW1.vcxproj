@@ -147,6 +147,11 @@
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Backgrounds\cafe_image.png" />
+    <Image Include="Assets\Backgrounds\police_station_image.png" />
+    <Image Include="Assets\Backgrounds\pond_image.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

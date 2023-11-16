@@ -8,6 +8,7 @@
 struct Screen {
     std::string name;
     SDL_Texture* background;  // A texture for the background image
+    // You might want to add a destructor to deallocate the texture when a Screen is destroyed
 };
 
 struct Button {
@@ -26,8 +27,9 @@ public:
 
 private:
     SDL_Renderer* renderer;
+    std::vector<Screen> screens; // Stores Screen objects
     std::vector<Button> buttons;
-    Screen* currentScreen;
+    Screen* currentScreen; // This could be a pointer to an element in the screens vector
 
     void changeScreen(Screen* newScreen);
     // Additional private methods and member variables

@@ -2,46 +2,30 @@
 #include "TextureManager.h"
 
 ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen(nullptr) {
-    // Create screens for Cafe, Pond, Police Station
-    Screen cafeScreen;
-    cafeScreen.name = "Cafe";
-    cafeScreen.background = TextureManager::LoadTexture("path/to/cafe_image.png", renderer); // Corrected
+    // Initialize screens in the member vector
+    screens.push_back({ "Cafe", TextureManager::LoadTexture("Assets/Backgrounds/cafe_image.png", renderer) });
+    screens.push_back({ "Pond", TextureManager::LoadTexture("Assets/Backgrounds/pond_image.png", renderer) });
+    screens.push_back({ "Police Station", TextureManager::LoadTexture("Assets/Backgrounds/police_station_image.png", renderer) });
 
-    Screen pondScreen;
-    pondScreen.name = "Pond";
-    pondScreen.background = TextureManager::LoadTexture("path/to/pond_image.png", renderer); // Corrected
+    // Initialize buttons and link them to the corresponding screens
+    buttons.push_back({ {100, 100, 200, 50}, &screens[0] });
+    buttons.push_back({ {100, 200, 200, 50}, &screens[1] });
+    buttons.push_back({ {100, 300, 200, 50}, &screens[2] });
 
-    Screen policeStationScreen;
-    policeStationScreen.name = "Police Station";
-    policeStationScreen.background = TextureManager::LoadTexture("path/to/police_station_image.png", renderer);
-
-    // Store screens in a container if needed
-    std::vector<Screen> screens = { cafeScreen, pondScreen, policeStationScreen };
-
-    // Buttons for the location selector screen
-    Button cafeButton;
-    cafeButton.rect = { 100, 100, 200, 50 }; // Example position and size
-    cafeButton.linkedScreen = &screens[0]; // Link to Cafe screen
-
-    Button pondButton;
-    pondButton.rect = { 100, 200, 200, 50 }; // Another position and size
-    pondButton.linkedScreen = &screens[1]; // Link to Pond screen
-
-    Button policeStationButton;
-    policeStationButton.rect = { 100, 300, 200, 50 };
-    policeStationButton.linkedScreen = &screens[2]; // Link to Police Station screen
-
-    // Add buttons to the buttons vector
-    buttons.push_back(cafeButton);
-    buttons.push_back(pondButton);
-    buttons.push_back(policeStationButton);
-
-    // currentScreen = &locationSelectorScreen;
+    // Set the initial screen
+    currentScreen = &screens[0]; // For example, start with the Cafe screen
 }
 
 
+
 ScreenManager::~ScreenManager() {
-    // Clean up resources
+    for (auto& screen : screens) {
+        if (screen.background) {
+            SDL_DestroyTexture(screen.background);
+            screen.background = nullptr;
+        }
+    }
+    // Add any additional clean up for buttons if necessary
 }
 
 void ScreenManager::handleEvent(const SDL_Event& event) {
@@ -65,12 +49,15 @@ void ScreenManager::render() {
         // Render the background of the current screen
         SDL_RenderCopy(renderer, currentScreen->background, NULL, NULL);
     }
+
     // Render buttons for the location selector screen
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);  // Set the draw color to red for the buttons
     for (const auto& button : buttons) {
-        // Render button.rect, etc.
+        SDL_RenderFillRect(renderer, &button.rect);  // Fill a rectangle for the button
     }
     SDL_RenderPresent(renderer);
 }
+
 
 
 void ScreenManager::changeScreen(Screen* newScreen) {

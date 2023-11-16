@@ -138,6 +138,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CharacterLocations.txt" />
@@ -146,11 +147,17 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="TimeManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Backgrounds\cafe_image.png" />
     <Image Include="Assets\Backgrounds\police_station_image.png" />
     <Image Include="Assets\Backgrounds\pond_image.png" />
+    <Image Include="Assets\Backgrounds\selector_background.png" />
+    <Image Include="Assets\Times\evening.png" />
+    <Image Include="Assets\Times\morning.png" />
+    <Image Include="Assets\Times\night.png" />
+    <Image Include="Assets\Times\noon.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

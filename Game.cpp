@@ -14,7 +14,7 @@ void Game::init() {
     // Create window
     window = SDL_CreateWindow("Game Title",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        800, 600, SDL_WINDOW_SHOWN);
+        1280, 720, SDL_WINDOW_SHOWN);
     if (!window) {
         SDL_Log("Failed to create window: %s", SDL_GetError());
         SDL_Quit();

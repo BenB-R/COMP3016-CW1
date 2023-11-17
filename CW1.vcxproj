@@ -135,6 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CharacterManager.cpp" />
+    <ClCompile Include="ClueManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
@@ -143,9 +144,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="CharacterLocations.txt" />
+    <Text Include="ClueInfo.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CharacterManager.h" />
+    <ClInclude Include="ClueManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="TextureManager.h" />

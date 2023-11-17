@@ -76,4 +76,3 @@ void Game::cleanUp() {
     }
     SDL_Quit();  // Quit SDL
 }
-

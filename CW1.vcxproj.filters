@@ -45,9 +45,15 @@
     <ClCompile Include="CharacterManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ClueManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CharacterLocations.txt">
+      <Filter>Files</Filter>
+    </Text>
+    <Text Include="ClueInfo.txt">
       <Filter>Files</Filter>
     </Text>
   </ItemGroup>
@@ -65,6 +71,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CharacterManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClueManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

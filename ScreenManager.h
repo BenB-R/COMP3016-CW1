@@ -7,6 +7,7 @@
 #include <string>
 #include "TimeManager.h"
 #include "CharacterManager.h"
+#include "ClueManager.h"
 
 struct Screen {
     std::string name;
@@ -23,6 +24,7 @@ struct Button {
 };
 
 class ScreenManager {
+
 public:
     ScreenManager(SDL_Renderer* renderer);
     ~ScreenManager();
@@ -35,10 +37,18 @@ public:
     SDL_Texture* eveningTexture{};
     SDL_Texture* nightTexture{};
     CharacterManager characterManager;
+    ClueManager clueManager;
+
 
     void handleEvent(const SDL_Event& event);
+    void handleTalkButton(const Button& button);
+    void handleClueButton(const Button& button);
     void update();
+    void render();
     void render() const;
+    std::string getClueText(const std::string& locationName); // Place this in the public section of the class
+
+
 
     // Navigates to the location selector screen
     void goToLocationSelector();
@@ -53,6 +63,7 @@ private:
     std::vector<Screen> screens; // Now a member to store screens
     std::vector<Button> locationButtons; // Buttons for selecting locations
     std::vector<Button> talkButtons; // Add a list of talk buttons
+    std::vector<Button> clueButtons; // Clue buttons
     std::vector<CharacterInfo> currentCharacters;
     Button backButton; // A single back button to return to the location selector
     Screen* currentScreen;

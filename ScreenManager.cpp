@@ -1,8 +1,8 @@
 #include "ScreenManager.h"
 #include "TextureManager.h"
-#include "TimeManager.h"
 #include <iostream>
 #include <SDL_ttf.h>
+#include "ClueManager.h"
 
 ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen(nullptr) {
     // Initialize the location selector screen
@@ -25,6 +25,15 @@ ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen
         talkButton.label = "Talk";
         talkButton.linkedScreen = &screen;
         talkButtons.push_back(talkButton);
+    }
+
+    // Initialize clue buttons for each location
+    for (auto& screen : screens) {
+        Button clueButton;
+        clueButton.rect = { 400, 500, 200, 50 }; // Adjust position and size as needed
+        clueButton.label = "Search Clue";
+        clueButton.linkedScreen = &screen;
+        clueButtons.push_back(clueButton);
     }
 
     std::cout << "Screens and buttons initialized." << std::endl;
@@ -95,52 +104,67 @@ void ScreenManager::handleEvent(const SDL_Event& event) {
                 if (SDL_PointInRect(&clickPoint, &button.rect)) {
                     std::cout << "Location button clicked. Changing screen to: " << button.linkedScreen->name << std::endl;
                     changeScreen(button.linkedScreen);
-                    return; // Exit the function after handling the event
+                    return;  // Exit after handling the event
                 }
             }
         }
         else {
             std::cout << "Current screen is not the location selector." << std::endl;
+
             // Handle the back button click
             if (SDL_PointInRect(&clickPoint, &backButton.rect)) {
                 std::cout << "Back button clicked. Returning to location selector." << std::endl;
                 goToLocationSelector();
-                timeManager.advanceTime();  // Advance time when the back button is clicked
-                return; // Exit the function after handling the event
+                timeManager.advanceTime();
+                return;  // Exit after handling the event
             }
 
             // Handle talk button clicks
             for (const auto& button : talkButtons) {
                 if (SDL_PointInRect(&clickPoint, &button.rect)) {
-                    std::string timeOfDay = timeManager.getCurrentTimeAsString();
-                    std::cout << "Talk button clicked. Current time of day: " << timeOfDay << std::endl;
-                    std::cout << "Current screen name: " << (currentScreen ? currentScreen->name : "null") << std::endl;
+                    handleTalkButton(button);
+                    return;  // Exit after handling the event
+                }
+            }
 
-                    currentCharacters = characterManager.getCharactersAt(timeOfDay, currentScreen->name);
-
-                    std::cout << "Talk button clicked for screen: " << currentScreen->name << std::endl;
-                    std::cout << "Characters at this location and time: " << std::endl;
-                    if (currentCharacters.empty()) {
-                        std::cout << "No characters found." << std::endl;
-                    }
-                    for (const auto& character : currentCharacters) {
-                        std::cout << "Name: " << character.name << ", Dialogue: " << character.dialogue << std::endl;
-                    }
-                    return; // Exit the function after handling the event
+            // Handle clue button clicks
+            for (const auto& button : clueButtons) {
+                if (SDL_PointInRect(&clickPoint, &button.rect)) {
+                    handleClueButton(button);
+                    return;  // Exit after handling the event
                 }
             }
         }
     }
 }
 
+void ScreenManager::handleTalkButton(const Button& button) {
+    std::string timeOfDay = timeManager.getCurrentTimeAsString();
+    currentCharacters = characterManager.getCharactersAt(timeOfDay, currentScreen->name);
+
+    std::cout << "Talk button clicked for screen: " << currentScreen->name << std::endl;
+    std::cout << "Characters at this location and time: " << std::endl;
+    if (currentCharacters.empty()) {
+        std::cout << "No characters found." << std::endl;
+    }
+    for (const auto& character : currentCharacters) {
+        std::cout << "Name: " << character.name << ", Dialogue: " << character.dialogue << std::endl;
+    }
+}
+
+void ScreenManager::handleClueButton(const Button& button) {
+    // Retrieve and display the clue for the current location
+    std::string clueText = getClueText(currentScreen->name);
+    std::cout << "You found this clue: " << clueText << std::endl;
+    // Store or display the clue text as required by your game logic
+}
 
 
 void ScreenManager::update() {
     // Update logic for the current screen
 }
 
-void ScreenManager::render() const
-{
+void ScreenManager::render() {
     SDL_RenderClear(renderer);
     if (currentScreen) {
         // Render the background
@@ -149,20 +173,25 @@ void ScreenManager::render() const
         // Render location selector buttons
         if (currentScreen->isLocationSelector) {
             for (const auto& button : locationButtons) {
-                SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255); // Example: white color for button
+                SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
                 SDL_RenderFillRect(renderer, &button.rect);
-                // Render button label here (if you have one)
             }
         }
-        // Render talk buttons when not in location selector
         else {
+            // Render talk buttons and clue buttons when not in location selector
             for (const auto& button : talkButtons) {
                 SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Example: green color for talk button
                 SDL_RenderFillRect(renderer, &button.rect);
                 // Render talk button label here (if you have one)
             }
 
-            // Render character dialogues if available
+            for (const auto& button : clueButtons) {
+                SDL_SetRenderDrawColor(renderer, 255, 100, 0, 255); // Example: orange color for clue button
+                SDL_RenderFillRect(renderer, &button.rect);
+                // Render clue button label here (if you have one)
+            }
+
+             // Render character dialogues if available
             if (!currentCharacters.empty()) {
                 for (const auto& character : currentCharacters) {
                     // Render the character's name with a black background box
@@ -170,7 +199,7 @@ void ScreenManager::render() const
                     SDL_Texture* nameTexture = SDL_CreateTextureFromSurface(renderer, surfaceName);
                     SDL_Rect name_rect;
                     name_rect.x = 100;
-                    name_rect.y = 260;  // Adjusted y position
+                    name_rect.y = 260;
                     name_rect.w = surfaceName->w;
                     name_rect.h = surfaceName->h;
 
@@ -178,7 +207,7 @@ void ScreenManager::render() const
                     SDL_Rect name_background_rect = name_rect;
                     name_background_rect.w += 20;  // Padding
                     name_background_rect.h += 20;
-                    name_background_rect.x -= 10;  // Adjust for padding
+                    name_background_rect.x -= 10;
                     name_background_rect.y -= 10;
                     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black color
                     SDL_RenderFillRect(renderer, &name_background_rect);
@@ -213,50 +242,73 @@ void ScreenManager::render() const
                     SDL_DestroyTexture(nameTexture);
                 }
             }
+
+            // Define a string variable for clue text
+            std::string clueText = getClueText(currentScreen->name); // Assuming currentScreen->name holds the location name
+
+            // Render clue text if available
+            if (!clueText.empty()) {
+                // Render clue text with a black background box
+                SDL_Surface* surfaceClue = TTF_RenderText_Blended(dialogueFont, clueText.c_str(), { 255, 255, 255, 255 });
+                SDL_Texture* clueTexture = SDL_CreateTextureFromSurface(renderer, surfaceClue);
+                SDL_Rect clue_rect = { 100, 550, surfaceClue->w, surfaceClue->h }; // Adjust position as needed
+
+                // Draw a black background box for the clue text
+                SDL_Rect background_rect = { clue_rect.x - 10, clue_rect.y - 10, clue_rect.w + 20, clue_rect.h + 20 };
+                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black color
+                SDL_RenderFillRect(renderer, &background_rect);
+                SDL_RenderCopy(renderer, clueTexture, NULL, &clue_rect);
+
+                // Clean up
+                SDL_FreeSurface(surfaceClue);
+                SDL_DestroyTexture(clueTexture);
+            }
+
         }
-        if (!currentScreen->isLocationSelector) {
-            // This sets the draw color for the back button - make sure this color stands out
-            SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // Example: yellow color for back button
-            SDL_RenderFillRect(renderer, &backButton.rect);
 
-            // If you have a texture for the back button, use this instead:
-            // SDL_RenderCopy(renderer, backButtonTexture, NULL, &backButton.rect);
+        // Render the back button
+        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // Example: yellow color for back button
+        SDL_RenderFillRect(renderer, &backButton.rect);
+        // Render backButtonTexture if you have one
+
+        // Render the time indicator
+        int timeTextureWidth = 100;
+        int timeTextureHeight = 50;
+        SDL_Rect timeRect = { 1280 - timeTextureWidth - 10, 10, timeTextureWidth, timeTextureHeight };
+        SDL_Texture* timeTexture = nullptr;
+
+        switch (timeManager.getCurrentTime()) {
+        case TimeManager::MORNING: timeTexture = morningTexture; break;
+        case TimeManager::NOON: timeTexture = noonTexture; break;
+        case TimeManager::AFTERNOON: timeTexture = afternoonTexture; break;
+        case TimeManager::EVENING: timeTexture = eveningTexture; break;
+        case TimeManager::NIGHT: timeTexture = nightTexture; break;
         }
+
+        if (timeTexture) {
+            SDL_RenderCopy(renderer, timeTexture, NULL, &timeRect);
+        }
+
+        SDL_RenderPresent(renderer);
     }
+}
 
-    
-    // Define the size of the time indicator images
-    int timeTextureWidth = 100;
-    int timeTextureHeight = 50;
 
-    // Position the time indicator in the top right corner for a 720p window
-    SDL_Rect timeRect = { 1280 - timeTextureWidth - 10, 10, timeTextureWidth, timeTextureHeight }; // Adjust as needed
-    SDL_Texture* timeTexture = nullptr;
+std::string ScreenManager::getClueText(const std::string& locationName) {
+    // Determine the clue index or type based on the location name
+    // This is a basic example and should be adapted to your game logic
+    int clueIndex = 0; // Default to some clue index
 
-    switch (timeManager.getCurrentTime()) {
-    case TimeManager::MORNING:
-        timeTexture = morningTexture;
-        break;
-    case TimeManager::NOON:
-        timeTexture = noonTexture;
-        break;
-    case TimeManager::AFTERNOON:
-        timeTexture = afternoonTexture;
-        break;
-    case TimeManager::EVENING:
-        timeTexture = eveningTexture;
-        break;
-    case TimeManager::NIGHT:
-        timeTexture = nightTexture;
-        break;
+    if (locationName == "Cafe") {
+        clueIndex = 1; // Example index for Cafe
     }
-
-    if (timeTexture) {
-        SDL_RenderCopy(renderer, timeTexture, NULL, &timeRect);
+    else if (locationName == "Pond") {
+        clueIndex = 2; // Example index for Pond
     }
+    // Add more conditions for other locations
 
-
-    SDL_RenderPresent(renderer);
+    // Retrieve and return the clue text using the ClueManager
+    return clueManager.getDynamicClue(clueIndex);
 }
 
 

@@ -27,6 +27,15 @@ ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen
         talkButtons.push_back(talkButton);
     }
 
+    std::cout << "Screens and buttons initialized." << std::endl;
+    for (const auto& screen : screens) {
+        std::cout << "Screen initialized: " << screen.name << std::endl;
+    }
+    for (const auto& button : talkButtons) {
+        std::cout << "Talk button initialized for screen: "
+            << (button.linkedScreen ? button.linkedScreen->name : "null") << std::endl;
+    }
+
     // Initialize SDL_ttf and load a font
     TTF_Init();
     dialogueFont = TTF_OpenFont("Fonts/slkscr.ttf", 24);
@@ -77,19 +86,24 @@ void ScreenManager::loadTimeTextures() {
 void ScreenManager::handleEvent(const SDL_Event& event) {
     if (event.type == SDL_MOUSEBUTTONDOWN) {
         SDL_Point clickPoint = { event.button.x, event.button.y };
+        std::cout << "Mouse button down at (" << clickPoint.x << ", " << clickPoint.y << ")" << std::endl;
 
         // Check if the current screen is the location selector
         if (currentScreen->isLocationSelector) {
+            std::cout << "Current screen is the location selector." << std::endl;
             for (const auto& button : locationButtons) {
                 if (SDL_PointInRect(&clickPoint, &button.rect)) {
+                    std::cout << "Location button clicked. Changing screen to: " << button.linkedScreen->name << std::endl;
                     changeScreen(button.linkedScreen);
                     return; // Exit the function after handling the event
                 }
             }
         }
         else {
+            std::cout << "Current screen is not the location selector." << std::endl;
             // Handle the back button click
             if (SDL_PointInRect(&clickPoint, &backButton.rect)) {
+                std::cout << "Back button clicked. Returning to location selector." << std::endl;
                 goToLocationSelector();
                 timeManager.advanceTime();  // Advance time when the back button is clicked
                 return; // Exit the function after handling the event
@@ -99,11 +113,16 @@ void ScreenManager::handleEvent(const SDL_Event& event) {
             for (const auto& button : talkButtons) {
                 if (SDL_PointInRect(&clickPoint, &button.rect)) {
                     std::string timeOfDay = timeManager.getCurrentTimeAsString();
+                    std::cout << "Talk button clicked. Current time of day: " << timeOfDay << std::endl;
+                    std::cout << "Current screen name: " << (currentScreen ? currentScreen->name : "null") << std::endl;
+
                     currentCharacters = characterManager.getCharactersAt(timeOfDay, currentScreen->name);
 
-                    // Debug output to console
                     std::cout << "Talk button clicked for screen: " << currentScreen->name << std::endl;
                     std::cout << "Characters at this location and time: " << std::endl;
+                    if (currentCharacters.empty()) {
+                        std::cout << "No characters found." << std::endl;
+                    }
                     for (const auto& character : currentCharacters) {
                         std::cout << "Name: " << character.name << ", Dialogue: " << character.dialogue << std::endl;
                     }
@@ -114,11 +133,14 @@ void ScreenManager::handleEvent(const SDL_Event& event) {
     }
 }
 
+
+
 void ScreenManager::update() {
     // Update logic for the current screen
 }
 
-void ScreenManager::render() {
+void ScreenManager::render() const
+{
     SDL_RenderClear(renderer);
     if (currentScreen) {
         // Render the background
@@ -141,26 +163,54 @@ void ScreenManager::render() {
             }
 
             // Render character dialogues if available
-            if (!currentScreen->isLocationSelector) {
-                if (!currentCharacters.empty()) {
-                    for (const auto& character : currentCharacters) {
-                        SDL_Color textColor = { 255, 255, 255, 255 }; // White color for text
-                        SDL_Surface* surfaceMessage = TTF_RenderText_Blended(dialogueFont, character.dialogue.c_str(), textColor);
-                        SDL_Texture* message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-                        SDL_Rect message_rect; // Set the position and size for your text
+            if (!currentCharacters.empty()) {
+                for (const auto& character : currentCharacters) {
+                    // Render the character's name with a black background box
+                    SDL_Surface* surfaceName = TTF_RenderText_Blended(dialogueFont, character.name.c_str(), { 255, 255, 255, 255 }); // White color for text
+                    SDL_Texture* nameTexture = SDL_CreateTextureFromSurface(renderer, surfaceName);
+                    SDL_Rect name_rect;
+                    name_rect.x = 100;
+                    name_rect.y = 260;  // Adjusted y position
+                    name_rect.w = surfaceName->w;
+                    name_rect.h = surfaceName->h;
 
-                        // You can use the character's screen position or set a fixed position for the dialogue
-                        message_rect.x = 100;  // For example, let's just say it's at x = 100
-                        message_rect.y = 550;  // and y = 550, adjust as needed
-                        message_rect.w = surfaceMessage->w; // Use the surface's width
-                        message_rect.h = surfaceMessage->h; // and height for the texture rect
+                    // Draw a black background box for the name
+                    SDL_Rect name_background_rect = name_rect;
+                    name_background_rect.w += 20;  // Padding
+                    name_background_rect.h += 20;
+                    name_background_rect.x -= 10;  // Adjust for padding
+                    name_background_rect.y -= 10;
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black color
+                    SDL_RenderFillRect(renderer, &name_background_rect);
 
-                        SDL_RenderCopy(renderer, message, NULL, &message_rect);
+                    SDL_RenderCopy(renderer, nameTexture, NULL, &name_rect);
 
-                        // Clean up the surface and texture
-                        SDL_FreeSurface(surfaceMessage);
-                        SDL_DestroyTexture(message);
-                    }
+                    // Render the character's dialogue
+                    SDL_Color textColor = { 255, 255, 255, 255 };
+                    SDL_Surface* surfaceMessage = TTF_RenderText_Blended(dialogueFont, character.dialogue.c_str(), textColor);
+                    SDL_Texture* message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+                    SDL_Rect message_rect;
+                    message_rect.x = 100;
+                    message_rect.y = 300;  // Below the character's name
+                    message_rect.w = surfaceMessage->w;
+                    message_rect.h = surfaceMessage->h;
+
+                    // Draw a black background box for the text
+                    SDL_Rect background_rect = message_rect;
+                    background_rect.w += 20;
+                    background_rect.h += 20;
+                    background_rect.x -= 10;
+                    background_rect.y -= 10;
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black color
+                    SDL_RenderFillRect(renderer, &background_rect);
+
+                    SDL_RenderCopy(renderer, message, NULL, &message_rect);
+
+                    // Clean up
+                    SDL_FreeSurface(surfaceMessage);
+                    SDL_DestroyTexture(message);
+                    SDL_FreeSurface(surfaceName);
+                    SDL_DestroyTexture(nameTexture);
                 }
             }
         }
@@ -171,8 +221,6 @@ void ScreenManager::render() {
 
             // If you have a texture for the back button, use this instead:
             // SDL_RenderCopy(renderer, backButtonTexture, NULL, &backButton.rect);
-
-            // Render the talk buttons and character dialogues...
         }
     }
 
@@ -213,13 +261,18 @@ void ScreenManager::render() {
 
 
 void ScreenManager::changeScreen(Screen* newScreen) {
+    std::cout << "Changing screen from: " << (currentScreen ? currentScreen->name : "null")
+        << " to: " << (newScreen ? newScreen->name : "null") << std::endl;
     currentScreen = newScreen;
 }
 
+
 void ScreenManager::goToLocationSelector() {
+    currentCharacters.clear(); // Clear the current character dialogues
     currentScreen = locationSelectorScreen;
 }
 
 void ScreenManager::goToLocation(Screen* locationScreen) {
+    currentCharacters.clear(); // Clear the current character dialogues
     currentScreen = locationScreen;
 }

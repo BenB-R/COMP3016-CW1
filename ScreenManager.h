@@ -29,16 +29,16 @@ public:
 
     TimeManager timeManager;
 
-    SDL_Texture* morningTexture;
-    SDL_Texture* noonTexture;
-    SDL_Texture* afternoonTexture;
-    SDL_Texture* eveningTexture;
-    SDL_Texture* nightTexture;
+    SDL_Texture* morningTexture{};
+    SDL_Texture* noonTexture{};
+    SDL_Texture* afternoonTexture{};
+    SDL_Texture* eveningTexture{};
+    SDL_Texture* nightTexture{};
     CharacterManager characterManager;
 
     void handleEvent(const SDL_Event& event);
     void update();
-    void render();
+    void render() const;
 
     // Navigates to the location selector screen
     void goToLocationSelector();

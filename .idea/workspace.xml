@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fdd8a20d-23f3-412f-9793-74097c7c60e0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.vs/CW1/FileContentIndex/0f43caba-78f1-4eb4-902b-ad1c9aa00337.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/CW1/FileContentIndex/59868119-ce2d-4346-bd4f-b54f6be85971.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/CW1/FileContentIndex/af8e111f-68f0-4d14-9929-3613ec777a69.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/CW1/FileContentIndex/c91d807d-bab2-4fd2-acc3-793bb7149766.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/CW1/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/CW1/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/CW1/v17/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/CW1/v17/Browse.VC.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/CW1/v17/ipch/AutoPCH/627eba59c175f1de/CHARACTERMANAGER.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/CW1/v17/ipch/AutoPCH/627eba59c175f1de/CHARACTERMANAGER.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/CW1/v17/ipch/AutoPCH/82d6c93db53870f5/SCREENMANAGER.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/CW1/v17/ipch/AutoPCH/82d6c93db53870f5/SCREENMANAGER.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/CW1/v17/ipch/AutoPCH/a34770a262306779/MAIN.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/CW1/v17/ipch/AutoPCH/a34770a262306779/MAIN.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScreenManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ScreenManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScreenManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/ScreenManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/CW1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/CW1.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/CW1.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/CW1.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/CW1.log" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/CW1.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/CW1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/CW1.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/CW1.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/CW1.tlog/CL.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/CW1.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/CW1.tlog/CL.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/CW1.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/CW1.tlog/CL.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/CW1.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/CW1.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/CharacterManager.obj" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/CharacterManager.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/ScreenManager.obj" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/ScreenManager.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/game.obj" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/game.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/main.obj" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/main.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/vc143.idb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/vc143.pdb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2YJDvZqcdjBVOg8WKnOcgkLpOev" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "C:/Users/benri/source/repos/CW1",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fdd8a20d-23f3-412f-9793-74097c7c60e0" name="Changes" comment="" />
+      <created>1700235019604</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1700235019604</updated>
+      <workItem from="1700235020636" duration="30000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

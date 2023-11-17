@@ -22,6 +22,9 @@
     <Filter Include="Resource Files\Backgrounds">
       <UniqueIdentifier>{f84645e2-7242-4baf-9beb-57ae6dd7c2dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Fonts">
+      <UniqueIdentifier>{be279f58-0105-49ce-9bbb-558675ffc649}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,5 +96,10 @@
     <Image Include="Assets\Times\afternoon.png">
       <Filter>Resource Files\Backgrounds</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Fonts\slkscr.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

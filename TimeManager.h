@@ -1,5 +1,6 @@
 // TimeManager.h
 
+#include <string>
 #ifndef TIMEMANAGER_H
 #define TIMEMANAGER_H
 
@@ -8,6 +9,8 @@ public:
     enum TimeOfDay { MORNING, NOON, AFTERNOON, EVENING, NIGHT };
 
     TimeManager();
+
+    std::string getCurrentTimeAsString() const;
 
     void advanceTime();
     TimeOfDay getCurrentTime() const;

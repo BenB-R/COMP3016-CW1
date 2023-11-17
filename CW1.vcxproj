@@ -108,13 +108,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\benri\source\repos\SDL2_image-2.0.1\include;C:\Users\benri\source\repos\SDL2_image-2.0.1;C:\Users\benri\source\repos\SDL2-2.28.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\benri\source\repos\SDL2_image-2.0.1\include;C:\Users\benri\source\repos\SDL2_image-2.0.1;C:\Users\benri\source\repos\SDL2_ttf-2.20.2\include;C:\Users\benri\source\repos\SDL2-2.28.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\benri\source\repos\SDL2_image-2.0.1\lib\x64;C:\Users\benri\source\repos\SDL2-2.28.5\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\benri\source\repos\SDL2_ttf-2.20.2\lib\x64;C:\Users\benri\source\repos\SDL2_image-2.0.1\lib\x64;C:\Users\benri\source\repos\SDL2-2.28.5\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -161,6 +161,9 @@
     <Image Include="Assets\Times\morning.png" />
     <Image Include="Assets\Times\night.png" />
     <Image Include="Assets\Times\noon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Fonts\slkscr.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

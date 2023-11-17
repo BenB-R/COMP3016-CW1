@@ -25,6 +25,23 @@ void TimeManager::advanceTime() {
     updateGameEnvironment(currentTime);
 }
 
+std::string TimeManager::getCurrentTimeAsString() const {
+    switch (currentTime) {
+    case MORNING:
+        return "Morning";
+    case NOON:
+        return "Noon";
+    case AFTERNOON:
+        return "Afternoon";
+    case EVENING:
+        return "Evening";
+    case NIGHT:
+        return "Night";
+    default:
+        return "Unknown";
+    }
+}
+
 TimeManager::TimeOfDay TimeManager::getCurrentTime() const {
     return currentTime;
 }

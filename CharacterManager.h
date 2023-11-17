@@ -17,7 +17,7 @@ public:
     CharacterManager();
     void loadCharacterData(const std::string& filename);
     std::vector<CharacterInfo> getCharacterSchedule(const std::string& name);
-
+    std::vector<CharacterInfo> getCharactersAt(const std::string& timeOfDay, const std::string& location);
 private:
     std::map<std::string, std::vector<CharacterInfo>> characterSchedules; // Key: Character Name
     void parseCharacterFile(const std::string& filename);

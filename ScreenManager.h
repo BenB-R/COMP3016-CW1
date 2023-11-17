@@ -2,9 +2,11 @@
 #define SCREENMANAGER_H
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <vector>
 #include <string>
 #include "TimeManager.h"
+#include "CharacterManager.h"
 
 struct Screen {
     std::string name;
@@ -16,6 +18,7 @@ struct Screen {
 struct Button {
     SDL_Rect rect;
     Screen* linkedScreen;
+    std::string label;
     // Other button properties, such as a texture for the button, if desired
 };
 
@@ -31,6 +34,7 @@ public:
     SDL_Texture* afternoonTexture;
     SDL_Texture* eveningTexture;
     SDL_Texture* nightTexture;
+    CharacterManager characterManager;
 
     void handleEvent(const SDL_Event& event);
     void update();
@@ -48,9 +52,12 @@ private:
     SDL_Renderer* renderer;
     std::vector<Screen> screens; // Now a member to store screens
     std::vector<Button> locationButtons; // Buttons for selecting locations
+    std::vector<Button> talkButtons; // Add a list of talk buttons
+    std::vector<CharacterInfo> currentCharacters;
     Button backButton; // A single back button to return to the location selector
     Screen* currentScreen;
     Screen* locationSelectorScreen; // Pointer to the location selector screen
+    TTF_Font* dialogueFont;
 
     void changeScreen(Screen* newScreen);
 };

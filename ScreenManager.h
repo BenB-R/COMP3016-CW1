@@ -28,6 +28,7 @@ public:
 
     SDL_Texture* morningTexture;
     SDL_Texture* noonTexture;
+    SDL_Texture* afternoonTexture;
     SDL_Texture* eveningTexture;
     SDL_Texture* nightTexture;
 

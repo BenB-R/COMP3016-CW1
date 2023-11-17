@@ -1,39 +1,36 @@
-Morning,Kacper,Gym,Working/Training
-Morning,Ken,Police Station,Patrolling Village
-Morning,George,Shop,Opening Shop
-Morning,Jack,Café,Serving Customers
-Morning,Dom,Pond,Cleaning Pond Area
-Morning,Will,Library,Organising Books
-Morning,Alex,Alex's House,Caring for Pets
+Kacper, Morning, Gym, "Strange, one of our regulars hasn’t shown up for days. Hope they're okay."
+Kacper, Noon, Gym, "Saw Dom arguing with someone outside yesterday. Looked serious."
+Kacper, Afternoon, Gym, "Will was here earlier, seemed distracted, kept checking his phone."
+Kacper, Evening, Gym, "You know, George has been asking about diet for exotic pets. Odd for a shopkeeper, isn't it?"
 
-Noon,Kacper,Gym,Training Clients
-Noon,Ken,Police Station,Paperwork at Station
-Noon,George,Shop,Assisting Customers
-Noon,Jack,Café,Preparing Lunch
-Noon,Dom,Pond,Monitoring Wildlife
-Noon,Will,Library,Researching
-Noon,Alex,Alex's House,Showing Collection to Visitors
+Ken, Morning, Police Station, "We've had a string of burglaries lately. Keep your eyes open."
+Ken, Noon, Police Station, "A suspicious vehicle near the library? I'll file a report on that."
+Ken, Afternoon, Police Station, "Just debunked an alibi in another case. It's never a dull day here."
+Ken, Evening, Police Station, "Jack's had a couple of run-ins with us. Nothing major, just small disputes."
 
-Afternoon,Kacper,Gym,In a Meeting
-Afternoon,Ken,Police Station,Community Outreach
-Afternoon,George,Shop,Stocking Shelves
-Afternoon,Jack,Café,Cleaning Up
-Afternoon,Dom,Pond,Taking a Break Near Pond
-Afternoon,Will,Library,Reading
-Afternoon,Alex,Alex's House,Maintaining Pet Habitats
+George, Morning, Shop, "Alex bought a lot of pet food today. Preparing for a trip, maybe?"
+George, Noon, Shop, "There's this weird guy hanging around the pond lately. Gives me the creeps."
+George, Afternoon, Shop, "Kacper seems overly interested in Alex’s pets. Maybe he's planning to start his own collection?"
+George, Evening, Shop, "Will’s been buying a lot of criminal psychology books. A new hobby, perhaps?"
 
-Evening,Kacper,Gym,Closing Gym
-Evening,Ken,Police Station,Patrolling Village
-Evening,George,Shop,Closing Shop
-Evening,Jack,Café,Closing Café
-Evening,Dom,Pond,Observing Pond Life
-Evening,Will,Library,Cataloging Books
-Evening,Alex,Alex's House,Feeding Pets
+Jack, Morning, Cafe, "Some guy was here asking about Alex. Seemed more than just curious."
+Jack, Noon, Cafe, "There's a big event at the library next week. Will's organizing it."
+Jack, Afternoon, Cafe, "This car's been parked outside for hours. Never seen it before."
+Jack, Evening, Cafe, "I overheard George talking about debts. Seems he’s in a tough spot."
 
-Night,Kacper,Home,At Home
-Night,Ken,Police Station,Responding to Emergency (Not at Station)
-Night,George,Home,At Home
-Night,Jack,Home,At Home
-Night,Dom,Pond,Witnessing the Murder
-Night,Will,Home,At Home
-Night,Alex,Pond,Committing the Murder at Pond
+Dom, Morning, Pond, "If you're not here for the frogs, I don't have much to say."
+Dom, Noon, Pond, "Saw Will arguing on his phone earlier. He seemed upset."
+Dom, Afternoon, Pond, "Alex walked by earlier. He looked worried about something."
+Dom, Evening, Pond, "This watch? Found it near the pond. Doesn't belong to me or the frogs."
+
+Will, Morning, Library, "Someone's been checking out books on crime a lot. Not your usual light reading."
+Will, Noon, Library, "Alex comes here often. He's been acting a bit odd lately."
+Will, Afternoon, Library, "Jack seemed really stressed on the phone earlier. Something about the cafe's finances."
+Will, Evening, Library, "I saw someone following Alex a few nights ago. Didn't think much of it at the time."
+
+Alex, Morning, Alex's House, "My neighbor's been pretty nosy recently. Keeps asking about my visitors."
+Alex, Noon, Alex's House, "I'm just anxious about an upcoming deal. It’s nothing to worry about."
+Alex, Afternoon, Alex's House, "This note? Oh, it's just some old business. Not important."
+Alex, Evening, Alex's House, "I ordered something valuable, but the delivery's late. Starting to worry."
+
+Alex, Night, Alex's House, "Someone's in the house! I heard a window break downstairs!"

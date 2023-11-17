@@ -40,6 +40,7 @@ ScreenManager::~ScreenManager() {
 
     SDL_DestroyTexture(morningTexture);
     SDL_DestroyTexture(noonTexture);
+    SDL_DestroyTexture(afternoonTexture);
     SDL_DestroyTexture(eveningTexture);
     SDL_DestroyTexture(nightTexture);
 }
@@ -47,6 +48,7 @@ ScreenManager::~ScreenManager() {
 void ScreenManager::loadTimeTextures() {
     morningTexture = TextureManager::LoadTexture("Assets/Times/morning.png", renderer);
     noonTexture = TextureManager::LoadTexture("Assets/Times/noon.png", renderer);
+    afternoonTexture = TextureManager::LoadTexture("Assets/Times/afternoon.png", renderer);
     eveningTexture = TextureManager::LoadTexture("Assets/Times/evening.png", renderer);
     nightTexture = TextureManager::LoadTexture("Assets/Times/night.png", renderer);
 }
@@ -108,6 +110,9 @@ void ScreenManager::render() {
         break;
     case TimeManager::NOON:
         timeTexture = noonTexture;
+        break;
+    case TimeManager::AFTERNOON:
+        timeTexture = afternoonTexture;
         break;
     case TimeManager::EVENING:
         timeTexture = eveningTexture;

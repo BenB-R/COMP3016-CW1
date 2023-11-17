@@ -12,7 +12,7 @@ void Game::init() {
     }
 
     // Create window
-    window = SDL_CreateWindow("Game Title",
+    window = SDL_CreateWindow("Before Midnight",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         1280, 720, SDL_WINDOW_SHOWN);
     if (!window) {

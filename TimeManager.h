@@ -5,7 +5,7 @@
 
 class TimeManager {
 public:
-    enum TimeOfDay { MORNING, NOON, EVENING, NIGHT };
+    enum TimeOfDay { MORNING, NOON, AFTERNOON, EVENING, NIGHT };
 
     TimeManager();
 

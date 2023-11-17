@@ -10,6 +10,9 @@ void TimeManager::advanceTime() {
         currentTime = NOON;
         break;
     case NOON:
+        currentTime = AFTERNOON;
+        break;
+    case AFTERNOON:
         currentTime = EVENING;
         break;
     case EVENING:

@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CharacterManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
@@ -144,6 +145,7 @@
     <Text Include="CharacterLocations.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CharacterManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="TextureManager.h" />
@@ -154,6 +156,7 @@
     <Image Include="Assets\Backgrounds\police_station_image.png" />
     <Image Include="Assets\Backgrounds\pond_image.png" />
     <Image Include="Assets\Backgrounds\selector_background.png" />
+    <Image Include="Assets\Times\afternoon.png" />
     <Image Include="Assets\Times\evening.png" />
     <Image Include="Assets\Times\morning.png" />
     <Image Include="Assets\Times\night.png" />

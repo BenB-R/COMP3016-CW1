@@ -16,6 +16,12 @@
     <Filter Include="Files">
       <UniqueIdentifier>{99a93b5b-cd14-4886-a15e-72a0dedd029c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Times">
+      <UniqueIdentifier>{e74d038f-5d86-40ea-9f59-e9e81c57e2b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Backgrounds">
+      <UniqueIdentifier>{f84645e2-7242-4baf-9beb-57ae6dd7c2dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -31,6 +37,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -52,31 +61,37 @@
     <ClInclude Include="TimeManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Backgrounds\cafe_image.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Backgrounds\pond_image.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Backgrounds\police_station_image.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Backgrounds\selector_background.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Assets\Times\evening.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Times</Filter>
     </Image>
     <Image Include="Assets\Times\morning.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Times</Filter>
     </Image>
     <Image Include="Assets\Times\night.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Times</Filter>
     </Image>
     <Image Include="Assets\Times\noon.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Times</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\cafe_image.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\police_station_image.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\pond_image.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\selector_background.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Times\afternoon.png">
+      <Filter>Resource Files\Backgrounds</Filter>
     </Image>
   </ItemGroup>
 </Project>

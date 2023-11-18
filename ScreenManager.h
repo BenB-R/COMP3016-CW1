@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <set>
 #include <vector>
 #include <string>
 #include "TimeManager.h"
@@ -44,6 +45,13 @@ public:
     SDL_Texture* nightTexture{};
     CharacterManager characterManager;
 
+    std::set<int> discoveredCluesToday;
+    int cluesCollected = 0;
+
+    std::string currentClueText;
+    int totalWeight;
+
+
     void handleEvent(const SDL_Event& event);
     void handleTalkButton(const Button& button);
     void handleClueButton(const Button& button);
@@ -53,7 +61,7 @@ public:
     void initializeClueSlots();
     std::string getClueText(const std::string& locationName, const std::string& timeOfDay);
 
-
+    void resetForNewDay();  // Call this method when a new day starts
 
     // Navigates to the location selector screen
     void goToLocationSelector();
@@ -62,6 +70,8 @@ public:
     void goToLocation(Screen* locationScreen);
 
     void loadTimeTextures();
+
+    int getClueIndex(const std::string& locationName, const std::string& timeOfDay);
 
 private:
     SDL_Renderer* renderer;

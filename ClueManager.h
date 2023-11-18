@@ -10,6 +10,8 @@ public:
     ClueManager();
     void loadCluesFromFile(const std::string& filename);
     std::string getDynamicClue(int index);
+    void processAndRemoveMetadata(std::string& clueText);
+	int totalClueWeight = 0;
 
 private:
     struct Scenario {
@@ -17,6 +19,8 @@ private:
         std::string victim;
         std::string location;
     };
+
+    int totalCoreSupplementaryWeight;  // Holds the total weight for Core and Supplementary clues
 
     Scenario currentScenario;
     std::vector<Scenario> scenarios;

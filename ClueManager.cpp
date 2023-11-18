@@ -2,8 +2,9 @@
 #include <fstream>
 #include <random>
 #include <iostream>
+#include <sstream>
 
-ClueManager::ClueManager() {
+ClueManager::ClueManager() : totalCoreSupplementaryWeight(0) {
     initializeScenarios();
     selectScenario();
     loadCluesFromFile("ClueInfo.txt");
@@ -50,11 +51,54 @@ void ClueManager::generateAllClues() {
 std::string ClueManager::getDynamicClue(int index) {
     auto it = storedClues.find(index);
     if (it != storedClues.end()) {
-        return it->second;
+        std::string clueText = it->second;
+        processAndRemoveMetadata(clueText); // Extract and process metadata
+        return clueText;
     }
-    std::cout << "Invalid clue index: " << index << std::endl;
     return "Invalid clue index";
 }
+
+void ClueManager::processAndRemoveMetadata(std::string& clueText) {
+    // Initialize metadata components
+    std::string clueType;
+    int weight = 0;
+    
+    // Split the string into parts based on commas
+    std::vector<std::string> parts;
+    std::stringstream ss(clueText);
+    std::string part;
+    while (std::getline(ss, part, ',')) {
+        parts.push_back(part);
+    }
+
+    // Check if the clue format is correct (should be at least 6 parts)
+    if (parts.size() >= 6) {
+        // Extract the weight, which should be the second to last part
+        try {
+            int weight = std::stoi(parts[parts.size() - 5]);
+            std::string clueType = parts[parts.size() - 1];
+        }
+        catch (const std::invalid_argument& ia) {
+            std::cerr << "Invalid weight value: " << parts[parts.size() - 5] << '\n';
+            return; // Early return on error
+        }
+
+        // The clue type should be the last part
+        clueType = parts.back();
+
+        // Erase metadata from the clue text
+        size_t pos = clueText.rfind(parts[parts.size() - 5]);
+        if (pos != std::string::npos) {
+            clueText.erase(pos - 1); // -1 to remove the comma before weight
+        }
+    }
+    else {
+        std::cerr << "Clue text format is incorrect." << std::endl;
+        return; // Early return on error
+    }
+}
+
+
 
 std::string ClueManager::replacePlaceholders(const std::string& templateStr) {
     std::string result = templateStr;

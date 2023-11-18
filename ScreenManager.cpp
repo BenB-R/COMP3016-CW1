@@ -48,7 +48,7 @@ ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen
 
     // Initialize SDL_ttf and load a font
     TTF_Init();
-    dialogueFont = TTF_OpenFont("Fonts/slkscr.ttf", 22);
+    dialogueFont = TTF_OpenFont("Fonts/slkscr.ttf", 20);
     if (!dialogueFont) {
         std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
     }
@@ -155,13 +155,22 @@ void ScreenManager::handleTalkButton(const Button& button) {
 }
 
 void ScreenManager::handleClueButton(const Button& button) {
-    // Retrieve and display the clue for the current location
     std::string timeOfDay = timeManager.getCurrentTimeAsString();
-    std::string clueText = getClueText(currentScreen->name, timeOfDay);
-    std::cout << "You found this clue: " << clueText << std::endl;
-    // Store or display the clue text as required by your game logic
-}
+    int clueIndex = getClueIndex(currentScreen->name, timeOfDay);
 
+    if (clueIndex != -1 && discoveredCluesToday.find(clueIndex) == discoveredCluesToday.end()) {
+        // Clue is being discovered for the first time today
+        cluesCollected++;
+        discoveredCluesToday.insert(clueIndex);
+
+        // Save the found clue text to a member variable
+        currentClueText = clueManager.getDynamicClue(clueIndex);
+        totalWeight += ;
+        clueFound = true; // Now we only set this when the clue button is pressed
+        std::cout << "You found this clue: " << currentClueText << std::endl;
+        std::cout << "Total Weight:  " << totalWeight << std::endl;
+    }
+}
 
 void ScreenManager::update() {
     // Update logic for the current screen
@@ -179,6 +188,12 @@ void ScreenManager::render() {
                 SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
                 SDL_RenderFillRect(renderer, &button.rect);
             }
+            std::string clueCountText = "Clues Collected: " + std::to_string(cluesCollected);
+            SDL_Surface* surfaceClueCount = TTF_RenderText_Blended(dialogueFont, clueCountText.c_str(), { 255, 255, 255, 255 });
+            SDL_Texture* clueCountTexture = SDL_CreateTextureFromSurface(renderer, surfaceClueCount);
+            SDL_Rect clueCountRect = { 1280 - surfaceClueCount->w - 30, 720 - surfaceClueCount->h - 30, surfaceClueCount->w, surfaceClueCount->h };
+
+            SDL_RenderCopy(renderer, clueCountTexture, NULL, &clueCountRect);
         }
         else {
             // Render talk buttons and clue buttons when not in location selector
@@ -248,27 +263,30 @@ void ScreenManager::render() {
 
             // Define a string variable for clue text
             std::string timeOfDay = timeManager.getCurrentTimeAsString();
-            std::string clueText = getClueText(currentScreen->name, timeOfDay);
 
-            // Render clue text if available
-            if (clueFound && !clueText.empty()) {
-                // Render clue text with a black background box
-                SDL_Surface* surfaceClue = TTF_RenderText_Blended(dialogueFont, clueText.c_str(), { 255, 255, 255, 255 });
-                SDL_Texture* clueTexture = SDL_CreateTextureFromSurface(renderer, surfaceClue);
-                SDL_Rect clue_rect = { 100, 550, surfaceClue->w, surfaceClue->h }; // Adjust position as needed
+            if (clueFound)
+            {
+                std::string clueText = getClueText(currentScreen->name, timeOfDay);
 
-                // Draw a black background box for the clue text
-                SDL_Rect background_rect = { clue_rect.x - 10, clue_rect.y - 10, clue_rect.w + 20, clue_rect.h + 20 };
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black color
-                SDL_RenderFillRect(renderer, &background_rect);
-                SDL_RenderCopy(renderer, clueTexture, NULL, &clue_rect);
+                // Render clue text if available
+                if (!clueText.empty()) {
+                    // Render currentClueText with a black background box
+                    SDL_Surface* surfaceClue = TTF_RenderText_Blended(dialogueFont, currentClueText.c_str(), { 255, 255, 255, 255 });
+                    SDL_Texture* clueTexture = SDL_CreateTextureFromSurface(renderer, surfaceClue);
+                    SDL_Rect clue_rect = { 100, 550, surfaceClue->w, surfaceClue->h };
 
-                // Clean up
-                SDL_FreeSurface(surfaceClue);
-                SDL_DestroyTexture(clueTexture);
+                    // Draw a black background box for the clue text
+                    SDL_Rect background_rect = { clue_rect.x - 10, clue_rect.y - 10, clue_rect.w + 20, clue_rect.h + 20 };
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black color
+                    SDL_RenderFillRect(renderer, &background_rect);
+                    SDL_RenderCopy(renderer, clueTexture, NULL, &clue_rect);
 
-                //clueFound = false;
+                    // Clean up
+                    SDL_FreeSurface(surfaceClue);
+                    SDL_DestroyTexture(clueTexture);
+                }
             }
+            
 
             // Render the back button
             SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // Example: yellow color for back button
@@ -309,6 +327,16 @@ std::string ScreenManager::getClueText(const std::string& locationName, const st
     return "No clue found for this time and location.";
 }
 
+int ScreenManager::getClueIndex(const std::string& locationName, const std::string& timeOfDay) {
+    for (const auto& slot : clueSlots) {
+        if (slot.location == locationName && slot.time == timeOfDay) {
+            return slot.clueIndex;
+        }
+    }
+    return -1; // Indicates no clue found for the given location and time
+}
+
+
 void ScreenManager::initializeClueSlots() {
     std::vector<std::string> times = { "Morning", "Noon", "Afternoon", "Evening" };
     std::vector<std::string> locations = { "Gym", "Police Station", "Shop", "Cafe", "Pond", "Library", "Alex's House" };
@@ -325,11 +353,16 @@ void ScreenManager::initializeClueSlots() {
     }
 }
 
+void ScreenManager::resetForNewDay() {
+    discoveredCluesToday.clear();
+    cluesCollected = 0;
+}
 
 void ScreenManager::changeScreen(Screen* newScreen) {
     std::cout << "Changing screen from: " << (currentScreen ? currentScreen->name : "null")
         << " to: " << (newScreen ? newScreen->name : "null") << std::endl;
     currentScreen = newScreen;
+    clueFound = false; // Reset clue found state when changing screens
 }
 
 

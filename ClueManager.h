@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 class ClueManager {
 public:
@@ -21,9 +21,11 @@ private:
     Scenario currentScenario;
     std::vector<Scenario> scenarios;
     std::vector<std::string> clueTemplates;
+    std::unordered_map<int, std::string> storedClues; // Map to store generated clues
 
     void initializeScenarios();
     void selectScenario();
+    void generateAllClues(); // Function to generate all clues
     std::string replacePlaceholders(const std::string& templateStr);
 };
 

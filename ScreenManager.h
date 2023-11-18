@@ -23,6 +23,12 @@ struct Button {
     // Other button properties, such as a texture for the button, if desired
 };
 
+struct ClueSlot {
+    std::string location;
+    std::string time;
+    int clueIndex;
+};
+
 class ScreenManager {
 
 public:
@@ -37,8 +43,6 @@ public:
     SDL_Texture* eveningTexture{};
     SDL_Texture* nightTexture{};
     CharacterManager characterManager;
-    ClueManager clueManager;
-
 
     void handleEvent(const SDL_Event& event);
     void handleTalkButton(const Button& button);
@@ -46,7 +50,8 @@ public:
     void update();
     void render();
     void render() const;
-    std::string getClueText(const std::string& locationName); // Place this in the public section of the class
+    void initializeClueSlots();
+    std::string getClueText(const std::string& locationName, const std::string& timeOfDay);
 
 
 
@@ -69,6 +74,9 @@ private:
     Screen* currentScreen;
     Screen* locationSelectorScreen; // Pointer to the location selector screen
     TTF_Font* dialogueFont;
+    std::vector<ClueSlot> clueSlots;
+    ClueManager clueManager;
+    bool clueFound = false;
 
     void changeScreen(Screen* newScreen);
 };

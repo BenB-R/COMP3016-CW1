@@ -1,17 +1,21 @@
-Gym membership card found belonging to [Victim],3,[Victim],[Location],Varied,Core
-Report filed about suspicious vehicle near [Location], possibly related to [Victim],4,[Victim],[Location],Varied,Core
-Purchase log at [Location] shows large quantities of pet food bought by [Victim],4,[Victim],[Location],Varied,Core
-Broken watch found near the [Location], belonging to [Victim],5,[Victim],[Location],Varied,Core
-CCTV footage at [Location] shows [Murderer] following [Victim],5,[Victim],[Location],Varied,Core
-Torn letter in trash at [Location] about a debt owed by [Victim],4,[Victim],[Location],Varied,Core
-Book on criminal psychology checked out by [Murderer] from [Location],4,[Victim],[Location],Varied,Core
-Footprints at [Location] matching [Murderer], near where [Victim] was last seen,5,[Victim],[Location],Varied,Core
-Receipts found at [Location] for expensive purchases, not typical for [Victim],2,[Victim],[Location],Varied,Supplementary
-Note in trash at [Location] hinting at a threat against [Victim],3,[Victim],[Location],Varied,Supplementary
-Signs of a scuffle and a broken window at [Location], suggesting a struggle involving [Victim],3,[Victim],[Location],Varied,Supplementary
-Delivery receipt at [Location] for an item claimed never to have arrived by [Victim],2,[Victim],[Location],Varied,Supplementary
-Kacper mentions a regular at the [Location] who hasn’t shown up, unrelated to the case,1,Varied,[Location],Varied,Red Herring
-George talks about a suspicious character near the [Location], likely unrelated,1,Varied,[Location],Varied,Red Herring
-Jack notes a strange car parked outside the [Location], probably irrelevant,1,Varied,[Location],Varied,Red Herring
-Dom speaks about rare frog species at the [Location], not connected to the crime,1,Varied,[Location],Varied,Red Herring
-Ken discusses an unrelated burglary case at the [Location],1,Varied,[Location],Varied,Red Herring
+"Gym membership card found belonging to [Victim] at [Location],3,[Victim],[Location],Varied,Core",
+"Report filed about suspicious vehicle near [Location], possibly related to [Victim],4,[Victim],[Location],Varied,Core",
+"Purchase log at [Location] shows large quantities of pet food bought by [Victim],4,[Victim],[Location],Varied,Core",
+"Broken watch found near the [Location], belonging to [Victim],5,[Victim],[Location],Varied,Core",
+"CCTV footage at [Location] shows [Murderer] following [Victim],5,[Victim],[Location],Varied,Core",
+"Torn letter in trash at [Location] about a debt owed by [Victim],4,[Victim],[Location],Varied,Core",
+"Book on criminal psychology checked out by [Murderer] from [Location],4,[Victim],[Location],Varied,Core",
+"Footprints at [Location] matching [Murderer], near where [Victim] was last seen,5,[Victim],[Location],Varied,Core",
+"Receipts found at [Location] for expensive purchases, not typical for [Victim],2,[Victim],[Location],Varied,Supplementary",
+"Note in trash at [Location] hinting at a threat against [Victim],3,[Victim],[Location],Varied,Supplementary",
+"Signs of a scuffle and a broken window at [Location], suggesting a struggle involving [Victim],3,[Victim],[Location],Varied,Supplementary",
+"Delivery receipt at [Location] for an item claimed never to have arrived by [Victim],2,[Victim],[Location],Varied,Supplementary",
+"Overheard conversation at [Location] indicating tension between [Victim] and [Murderer],2,[Victim],[Location],Varied,Supplementary",
+"Sighting of [Victim] in a heated argument at [Location], not long before their disappearance,2,[Victim],[Location],Varied,Supplementary",
+"Kacper mentions a regular at the [Location] who hasn’t shown up, unrelated to the case,1,Varied,[Location],Varied,Red Herring",
+"George talks about a suspicious character near the [Location], likely unrelated,1,Varied,[Location],Varied,Red Herring",
+"Jack notes a strange car parked outside the [Location], probably irrelevant,1,Varied,[Location],Varied,Red Herring",
+"Dom speaks about rare frog species at the [Location], not connected to the crime,1,Varied,[Location],Varied,Red Herring",
+"Ken discusses an unrelated burglary case at the [Location],1,Varied,[Location],Varied,Red Herring",
+"Rumors of ghost sightings at [Location], clearly not connected to any crime,1,Varied,[Location],Varied,Red Herring",
+"Unverified claims of unusual activity at [Location] on the night of the crime,1,Varied,[Location],Varied,Red Herring"

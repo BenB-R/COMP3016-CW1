@@ -1,6 +1,7 @@
 #include "ScreenManager.h"
 #include "TextureManager.h"
 #include <iostream>
+#include <random>
 #include <SDL_ttf.h>
 #include "ClueManager.h"
 
@@ -21,7 +22,7 @@ ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen
     // Initialize talk buttons for each location
     for (auto& screen : screens) {
         Button talkButton;
-        talkButton.rect = { 300, 500, 200, 50 }; // Set the position and size
+        talkButton.rect = { 200, 200, 200, 50 }; // Set the position and size
         talkButton.label = "Talk";
         talkButton.linkedScreen = &screen;
         talkButtons.push_back(talkButton);
@@ -30,7 +31,7 @@ ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen
     // Initialize clue buttons for each location
     for (auto& screen : screens) {
         Button clueButton;
-        clueButton.rect = { 400, 500, 200, 50 }; // Adjust position and size as needed
+        clueButton.rect = { 200, 350, 200, 50 }; // Adjust position and size as needed
         clueButton.label = "Search Clue";
         clueButton.linkedScreen = &screen;
         clueButtons.push_back(clueButton);
@@ -47,7 +48,7 @@ ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen
 
     // Initialize SDL_ttf and load a font
     TTF_Init();
-    dialogueFont = TTF_OpenFont("Fonts/slkscr.ttf", 24);
+    dialogueFont = TTF_OpenFont("Fonts/slkscr.ttf", 22);
     if (!dialogueFont) {
         std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
     }
@@ -60,10 +61,10 @@ ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen
 
     characterManager.loadCharacterData("CharacterLocations.txt");
 
+    initializeClueSlots();
+
     loadTimeTextures();
 }
-
-
 
 
 ScreenManager::~ScreenManager() {
@@ -131,7 +132,8 @@ void ScreenManager::handleEvent(const SDL_Event& event) {
             for (const auto& button : clueButtons) {
                 if (SDL_PointInRect(&clickPoint, &button.rect)) {
                     handleClueButton(button);
-                    return;  // Exit after handling the event
+                    clueFound = true; // Set the flag when a clue button is clicked
+                    return; // Exit after handling the event
                 }
             }
         }
@@ -154,7 +156,8 @@ void ScreenManager::handleTalkButton(const Button& button) {
 
 void ScreenManager::handleClueButton(const Button& button) {
     // Retrieve and display the clue for the current location
-    std::string clueText = getClueText(currentScreen->name);
+    std::string timeOfDay = timeManager.getCurrentTimeAsString();
+    std::string clueText = getClueText(currentScreen->name, timeOfDay);
     std::cout << "You found this clue: " << clueText << std::endl;
     // Store or display the clue text as required by your game logic
 }
@@ -244,10 +247,11 @@ void ScreenManager::render() {
             }
 
             // Define a string variable for clue text
-            std::string clueText = getClueText(currentScreen->name); // Assuming currentScreen->name holds the location name
+            std::string timeOfDay = timeManager.getCurrentTimeAsString();
+            std::string clueText = getClueText(currentScreen->name, timeOfDay);
 
             // Render clue text if available
-            if (!clueText.empty()) {
+            if (clueFound && !clueText.empty()) {
                 // Render clue text with a black background box
                 SDL_Surface* surfaceClue = TTF_RenderText_Blended(dialogueFont, clueText.c_str(), { 255, 255, 255, 255 });
                 SDL_Texture* clueTexture = SDL_CreateTextureFromSurface(renderer, surfaceClue);
@@ -262,13 +266,15 @@ void ScreenManager::render() {
                 // Clean up
                 SDL_FreeSurface(surfaceClue);
                 SDL_DestroyTexture(clueTexture);
+
+                //clueFound = false;
             }
 
-        }
+            // Render the back button
+            SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // Example: yellow color for back button
+            SDL_RenderFillRect(renderer, &backButton.rect);
 
-        // Render the back button
-        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // Example: yellow color for back button
-        SDL_RenderFillRect(renderer, &backButton.rect);
+        }
         // Render backButtonTexture if you have one
 
         // Render the time indicator
@@ -294,21 +300,29 @@ void ScreenManager::render() {
 }
 
 
-std::string ScreenManager::getClueText(const std::string& locationName) {
-    // Determine the clue index or type based on the location name
-    // This is a basic example and should be adapted to your game logic
-    int clueIndex = 0; // Default to some clue index
-
-    if (locationName == "Cafe") {
-        clueIndex = 1; // Example index for Cafe
+std::string ScreenManager::getClueText(const std::string& locationName, const std::string& timeOfDay) {
+    for (const auto& slot : clueSlots) {
+        if (slot.location == locationName && slot.time == timeOfDay) {
+            return clueManager.getDynamicClue(slot.clueIndex);
+        }
     }
-    else if (locationName == "Pond") {
-        clueIndex = 2; // Example index for Pond
-    }
-    // Add more conditions for other locations
+    return "No clue found for this time and location.";
+}
 
-    // Retrieve and return the clue text using the ClueManager
-    return clueManager.getDynamicClue(clueIndex);
+void ScreenManager::initializeClueSlots() {
+    std::vector<std::string> times = { "Morning", "Noon", "Afternoon", "Evening" };
+    std::vector<std::string> locations = { "Gym", "Police Station", "Shop", "Cafe", "Pond", "Library", "Alex's House" };
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    for (const auto& time : times) {
+        for (const auto& location : locations) {
+            std::uniform_int_distribution<> distr(0, 21 - 1);
+            int clueIndex = distr(gen);
+            clueSlots.push_back({ location, time, clueIndex });
+        }
+    }
 }
 
 

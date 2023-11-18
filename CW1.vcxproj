@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="CharacterManager.cpp" />
     <ClCompile Include="ClueManager.cpp" />
+    <ClCompile Include="EndingManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
@@ -149,16 +150,21 @@
   <ItemGroup>
     <ClInclude Include="CharacterManager.h" />
     <ClInclude Include="ClueManager.h" />
+    <ClInclude Include="EndingManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TimeManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Backgrounds\cafe_image.png" />
-    <Image Include="Assets\Backgrounds\police_station_image.png" />
-    <Image Include="Assets\Backgrounds\pond_image.png" />
+    <Image Include="Assets\Backgrounds\cafe.png" />
+    <Image Include="Assets\Backgrounds\gym.png" />
+    <Image Include="Assets\Backgrounds\library.png" />
+    <Image Include="Assets\Backgrounds\mansion.png" />
+    <Image Include="Assets\Backgrounds\police_station.png" />
+    <Image Include="Assets\Backgrounds\pond.png" />
     <Image Include="Assets\Backgrounds\selector_background.png" />
+    <Image Include="Assets\Backgrounds\shop.png" />
     <Image Include="Assets\Times\afternoon.png" />
     <Image Include="Assets\Times\evening.png" />
     <Image Include="Assets\Times\morning.png" />

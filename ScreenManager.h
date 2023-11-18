@@ -9,6 +9,7 @@
 #include "TimeManager.h"
 #include "CharacterManager.h"
 #include "ClueManager.h"
+#include "EndingManager.h"
 
 struct Screen {
     std::string name;
@@ -44,6 +45,9 @@ public:
     SDL_Texture* eveningTexture{};
     SDL_Texture* nightTexture{};
     CharacterManager characterManager;
+    EndingManager endingManager;
+    bool gameEnded = false;
+    std::string endingMessage;
 
     std::set<int> discoveredCluesToday;
     int cluesCollected = 0;
@@ -79,6 +83,7 @@ private:
     std::vector<Button> locationButtons; // Buttons for selecting locations
     std::vector<Button> talkButtons; // Add a list of talk buttons
     std::vector<Button> clueButtons; // Clue buttons
+    Button resetButton;
     std::vector<CharacterInfo> currentCharacters;
     Button backButton; // A single back button to return to the location selector
     Screen* currentScreen;

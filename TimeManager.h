@@ -11,6 +11,7 @@ public:
     TimeManager();
 
     std::string getCurrentTimeAsString() const;
+    void setDayTime(TimeOfDay newTime);
 
     void advanceTime();
     TimeOfDay getCurrentTime() const;

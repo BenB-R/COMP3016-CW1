@@ -31,6 +31,10 @@ void ClueManager::selectScenario() {
         << ", Location=" << currentScenario.location << std::endl;
 }
 
+ClueManager::Scenario ClueManager::getCurrentScenario() const {
+    return currentScenario;
+}
+
 void ClueManager::loadCluesFromFile(const std::string& filename) {
     std::ifstream file(filename);
     std::string line;
@@ -48,21 +52,24 @@ void ClueManager::generateAllClues() {
     }
 }
 
-std::string ClueManager::getDynamicClue(int index) {
+std::string ClueManager::getDynamicClue(int index, int& outWeight) {
     auto it = storedClues.find(index);
     if (it != storedClues.end()) {
         std::string clueText = it->second;
-        processAndRemoveMetadata(clueText); // Extract and process metadata
+        outWeight = processAndRemoveMetadata(clueText); // Extract and process metadata, and get the weight
         return clueText;
     }
+    // Handle the case where the clue is not found
+    outWeight = 0; // If there's no clue, set weight to 0
     return "Invalid clue index";
 }
 
-void ClueManager::processAndRemoveMetadata(std::string& clueText) {
+
+int ClueManager::processAndRemoveMetadata(std::string& clueText) {
     // Initialize metadata components
     std::string clueType;
     int weight = 0;
-    
+
     // Split the string into parts based on commas
     std::vector<std::string> parts;
     std::stringstream ss(clueText);
@@ -75,12 +82,11 @@ void ClueManager::processAndRemoveMetadata(std::string& clueText) {
     if (parts.size() >= 6) {
         // Extract the weight, which should be the second to last part
         try {
-            int weight = std::stoi(parts[parts.size() - 5]);
-            std::string clueType = parts[parts.size() - 1];
+            weight = std::stoi(parts[parts.size() - 5]);
         }
         catch (const std::invalid_argument& ia) {
             std::cerr << "Invalid weight value: " << parts[parts.size() - 5] << '\n';
-            return; // Early return on error
+            return 0; // Return an error value, such as 0
         }
 
         // The clue type should be the last part
@@ -94,9 +100,11 @@ void ClueManager::processAndRemoveMetadata(std::string& clueText) {
     }
     else {
         std::cerr << "Clue text format is incorrect." << std::endl;
-        return; // Early return on error
+        return 0; // Return an error value, such as 0
     }
+    return weight;
 }
+
 
 
 

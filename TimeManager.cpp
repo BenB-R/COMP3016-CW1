@@ -25,6 +25,11 @@ void TimeManager::advanceTime() {
     updateGameEnvironment(currentTime);
 }
 
+void TimeManager::setDayTime(TimeOfDay newTime) {
+    currentTime = newTime;
+    updateGameEnvironment(currentTime);
+}
+
 std::string TimeManager::getCurrentTimeAsString() const {
     switch (currentTime) {
     case MORNING:
@@ -48,5 +53,4 @@ TimeManager::TimeOfDay TimeManager::getCurrentTime() const {
 
 void TimeManager::updateGameEnvironment(TimeOfDay time) {
     // Update game visuals and mechanics based on the time of day
-    // This can be expanded based on your game's specific requirements
 }

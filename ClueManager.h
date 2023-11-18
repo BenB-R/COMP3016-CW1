@@ -7,18 +7,20 @@
 
 class ClueManager {
 public:
-    ClueManager();
-    void loadCluesFromFile(const std::string& filename);
-    std::string getDynamicClue(int index);
-    void processAndRemoveMetadata(std::string& clueText);
-	int totalClueWeight = 0;
-
-private:
     struct Scenario {
         std::string murderer;
         std::string victim;
         std::string location;
     };
+    Scenario getCurrentScenario() const;
+    ClueManager();
+    void loadCluesFromFile(const std::string& filename);
+    std::string getDynamicClue(int index, int& outWeight);
+    int processAndRemoveMetadata(std::string& clueText);
+	int totalClueWeight = 0;
+
+private:
+
 
     int totalCoreSupplementaryWeight;  // Holds the total weight for Core and Supplementary clues
 

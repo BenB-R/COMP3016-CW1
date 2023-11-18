@@ -48,6 +48,9 @@
     <ClCompile Include="ClueManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EndingManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CharacterLocations.txt">
@@ -76,6 +79,9 @@
     <ClInclude Include="ClueManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EndingManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Times\evening.png">
@@ -90,19 +96,31 @@
     <Image Include="Assets\Times\noon.png">
       <Filter>Resource Files\Times</Filter>
     </Image>
-    <Image Include="Assets\Backgrounds\cafe_image.png">
-      <Filter>Resource Files\Backgrounds</Filter>
-    </Image>
-    <Image Include="Assets\Backgrounds\police_station_image.png">
-      <Filter>Resource Files\Backgrounds</Filter>
-    </Image>
-    <Image Include="Assets\Backgrounds\pond_image.png">
-      <Filter>Resource Files\Backgrounds</Filter>
-    </Image>
     <Image Include="Assets\Backgrounds\selector_background.png">
       <Filter>Resource Files\Backgrounds</Filter>
     </Image>
     <Image Include="Assets\Times\afternoon.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\cafe.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\gym.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\library.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\mansion.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\police_station.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\pond.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\shop.png">
       <Filter>Resource Files\Backgrounds</Filter>
     </Image>
   </ItemGroup>

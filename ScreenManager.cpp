@@ -218,7 +218,6 @@ void ScreenManager::update() {
 
 void ScreenManager::render() {
     SDL_RenderClear(renderer);
-
     if (gameEnded) {
         SDL_Texture* endingBackground = playerWins ? winBackground : loseBackground;
         SDL_RenderCopy(renderer, endingBackground, NULL, NULL); // Render the background
@@ -251,10 +250,16 @@ void ScreenManager::render() {
 
             // Render location selector buttons
             if (currentScreen->isLocationSelector) {
+                
                 for (const auto& button : locationButtons) {
                     // Set button color to black
                     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
                     SDL_RenderFillRect(renderer, &button.rect);
+
+                    // Debugging: Log surface and texture creation
+                    std::cout << "Creating surface and texture for button label." << std::endl;
+                    surfaceCount++;
+                    textureCount++;
 
                     // Render button label in white
                     SDL_Surface* surfaceLabel = TTF_RenderText_Blended(dialogueFont, button.linkedScreen->name.c_str(), { 255, 255, 255, 255 });
@@ -267,10 +272,16 @@ void ScreenManager::render() {
                     };
                     SDL_RenderCopy(renderer, labelTexture, NULL, &labelRect);
 
+                    // Debugging: Log surface and texture destruction
+                    std::cout << "Destroying surface and texture for button label." << std::endl;
+                    surfaceCount--;
+                    textureCount--;
+
                     // Clean up
                     SDL_FreeSurface(surfaceLabel);
                     SDL_DestroyTexture(labelTexture);
                 }
+
                 // Render clue count text
                 std::string clueCountText = "Clues Collected: " + std::to_string(cluesCollected);
                 SDL_Surface* surfaceClueCount = TTF_RenderText_Blended(dialogueFont, clueCountText.c_str(), { 255, 255, 255, 255 });
@@ -278,8 +289,13 @@ void ScreenManager::render() {
                 SDL_Rect clueCountRect = { 1280 - surfaceClueCount->w - 30, 720 - surfaceClueCount->h - 30, surfaceClueCount->w, surfaceClueCount->h };
                 SDL_RenderCopy(renderer, clueCountTexture, NULL, &clueCountRect);
 
-                SDL_RenderCopy(renderer, clueCountTexture, NULL, &clueCountRect);
+                // Free the surface and texture to prevent memory leak
+                SDL_FreeSurface(surfaceClueCount);  // Free the surface after creating the texture
+                SDL_DestroyTexture(clueCountTexture);  // Free the texture after rendering
 
+                // Debugging: Log resource counts
+                std::cout << "Active surfaces: " << surfaceCount << ", Active textures: " << textureCount << std::endl;
+                
                 if (timeManager.getCurrentTimeAsString() == "Night") {
                     std::string warningMessage = "Be careful when going out at night,\n"
                         "there is a murderer on the loose.\n"
@@ -327,6 +343,9 @@ void ScreenManager::render() {
                 };
                 SDL_RenderCopy(renderer, resetButtonTexture, NULL, &resetButtonTextRect);
 
+                // Free the surface and texture to prevent memory leak
+                SDL_FreeSurface(resetButtonSurface);  // Free the surface after creating the texture
+                SDL_DestroyTexture(resetButtonTexture);  // Free the texture after rendering
             }
             else {
                 // Render talk buttons and clue buttons when not in location selector
@@ -491,6 +510,7 @@ void ScreenManager::render() {
             SDL_RenderPresent(renderer);
         }
     }
+    
 }
 
 

@@ -58,6 +58,8 @@ public:
 
     std::string currentClueText;
     int totalWeight{};
+    int surfaceCount;
+    int textureCount;
 
 
     void handleEvent(const SDL_Event& event);

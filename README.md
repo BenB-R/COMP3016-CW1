@@ -1,8 +1,8 @@
 # COMP3016 CW1 - Before Midnight
 
 ## Version Information
-Visual Studio version: 2022 17.4.2
-Operating system version: Windows 10 Pro 22H2
+- Visual Studio version: 2022 17.4.2
+- Operating system version: Windows 10 Pro 22H2
 
 ## How does it play
 Before Midnight is a game where the player is trapped in a time loop, cursed to repeat each day. In the players dream, they get told that someone is going to die, and unless the chain is broken, they will be stuck in the loop forever.

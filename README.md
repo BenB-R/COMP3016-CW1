@@ -16,6 +16,7 @@ This UML diagram shows the screen states the player will go through to.
 ![Screen State Machine](3016ScreenStateMachine.drawio.png)
 
 This shows the gameplay loop
+
 ![Gameplay Loop](GameLoop.drawio.png)
 
 ## Exception handling

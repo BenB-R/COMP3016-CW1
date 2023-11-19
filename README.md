@@ -23,6 +23,7 @@ This shows the gameplay loop
 The game regularly uses exception handling to ensure the game doesn't crash, or have any memory leaks. There are also constant debugging messages for everything the player can do to help test. The game in theory will never crash, it will only report an error in the debug console.
 
 ## Youtube Video
+https://youtu.be/02UfoaAL-qQ
 
 ## GitHub Link
 https://github.com/BenB-R/COMP3016-CW1

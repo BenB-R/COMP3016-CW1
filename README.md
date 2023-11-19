@@ -13,10 +13,10 @@ Each playthrough of the game is different, generating different murder scenarios
 
 ## UML diagrams
 This UML diagram shows the screen states the player will go through to.
-![Screen State Machine](.3016 Screen StateMachine.drawio.png)
+![Screen State Machine](3016 Screen StateMachine.drawio.png)
 
 This shows the gameplay loop
-![Gameplay Loop](.Game Loop.drawio.png)
+![Gameplay Loop](Game Loop.drawio.png)
 
 ## Exception handling
 The game regularly uses exception handling to ensure the game doesn't crash, or have any memory leaks. There are also constant debugging messages for everything the player can do to help test. The game in theory will never crash, it will only report an error in the debug console.

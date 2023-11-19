@@ -44,16 +44,20 @@ public:
     SDL_Texture* afternoonTexture{};
     SDL_Texture* eveningTexture{};
     SDL_Texture* nightTexture{};
+    SDL_Texture* winBackground{};
+    SDL_Texture* loseBackground{};
+
     CharacterManager characterManager;
     EndingManager endingManager;
     bool gameEnded = false;
+    bool playerWins;
     std::string endingMessage;
 
     std::set<int> discoveredCluesToday;
     int cluesCollected = 0;
 
     std::string currentClueText;
-    int totalWeight;
+    int totalWeight{};
 
 
     void handleEvent(const SDL_Event& event);
@@ -61,7 +65,7 @@ public:
     void handleClueButton(const Button& button);
     void update();
     void render();
-    void render() const;
+    //void renderStoryScreen(SDL_Renderer* renderer, TTF_Font* font);
     void initializeClueSlots();
     std::string getClueText(const std::string& locationName, const std::string& timeOfDay);
 
@@ -74,6 +78,7 @@ public:
     void goToLocation(Screen* locationScreen);
 
     void loadTimeTextures();
+    void loadEndingBackgrounds();
 
     int getClueIndex(const std::string& locationName, const std::string& timeOfDay);
 

@@ -51,6 +51,9 @@
     <ClCompile Include="EndingManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CharacterLocations.txt">
@@ -80,6 +83,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EndingManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -123,10 +129,27 @@
     <Image Include="Assets\Backgrounds\shop.png">
       <Filter>Resource Files\Backgrounds</Filter>
     </Image>
+    <Image Include="Assets\Backgrounds\lose.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\win.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Backgrounds\menu.png">
+      <Filter>Resource Files\Backgrounds</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fonts\slkscr.ttf">
       <Filter>Resource Files\Fonts</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Music\CW1 3016 idea.mp3">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Assets\Music\CW1 idea 2.mp3">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

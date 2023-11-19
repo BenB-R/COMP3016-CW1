@@ -5,7 +5,7 @@
 #include <SDL_ttf.h>
 #include "ClueManager.h"
 
-ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen(nullptr), endingManager(clueManager) {
+ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen(nullptr), endingManager(clueManager), playerWins(false) {
     // Initialize the location selector screen
     locationSelectorScreen = new Screen{ "Location Selector", TextureManager::LoadTexture("Assets/Backgrounds/selector_background.png", renderer), true };
 
@@ -18,6 +18,7 @@ ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen
     screens.push_back({ "Alex's House", TextureManager::LoadTexture("Assets/Backgrounds/mansion.png", renderer), false });
     screens.push_back({ "Library", TextureManager::LoadTexture("Assets/Backgrounds/library.png", renderer), false });
 
+    loadEndingBackgrounds();
     // Initialize buttons for the location selector screen
     locationButtons.push_back({ {100, 150, 200, 50}, &screens[0] });
     locationButtons.push_back({ {100, 300, 200, 50}, &screens[1] });
@@ -41,7 +42,7 @@ ScreenManager::ScreenManager(SDL_Renderer* rend) : renderer(rend), currentScreen
     for (auto& screen : screens) {
         Button clueButton;
         clueButton.rect = { 200, 350, 200, 50 }; // Adjust position and size as needed
-        clueButton.label = "Search Clue";
+        clueButton.label = "Inspect";
         clueButton.linkedScreen = &screen;
         clueButtons.push_back(clueButton);
     }
@@ -92,6 +93,16 @@ ScreenManager::~ScreenManager() {
     SDL_DestroyTexture(nightTexture);
     TTF_CloseFont(dialogueFont);
     TTF_Quit();
+
+    if (winBackground) {
+        SDL_DestroyTexture(winBackground);
+        winBackground = nullptr;
+    }
+
+    if (loseBackground) {
+        SDL_DestroyTexture(loseBackground);
+        loseBackground = nullptr;
+    }
 }
 
 void ScreenManager::loadTimeTextures() {
@@ -198,9 +209,10 @@ void ScreenManager::handleClueButton(const Button& button) {
 
 void ScreenManager::update() {
     if (!gameEnded && currentScreen->name == clueManager.getCurrentScenario().location && timeManager.getCurrentTimeAsString() == "Night") {
-        gameEnded = true;
-        bool playerWins = totalWeight >= 10;
-        endingMessage = endingManager.getEndingMessage(playerWins);
+    	gameEnded = true;
+        playerWins = totalWeight >= 10;
+        int maxWidth = 1200;
+        endingMessage = endingManager.getEndingMessage(playerWins, maxWidth);
     }
 }
 
@@ -208,11 +220,24 @@ void ScreenManager::render() {
     SDL_RenderClear(renderer);
 
     if (gameEnded) {
-        // Render the ending message
-        SDL_Surface* surfaceMessage = TTF_RenderText_Blended(dialogueFont, endingMessage.c_str(), { 255, 255, 255, 255 });
-        SDL_Texture* messageTexture = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-        SDL_Rect messageRect = { (1280 - surfaceMessage->w) / 2, (720 - surfaceMessage->h) / 2, surfaceMessage->w, surfaceMessage->h };
+        SDL_Texture* endingBackground = playerWins ? winBackground : loseBackground;
+        SDL_RenderCopy(renderer, endingBackground, NULL, NULL); // Render the background
 
+        // Render the black background for the text
+        int maxWidth = 1200; // Set to your desired wrap width, less than screen width
+        SDL_Surface* surfaceMessage = TTF_RenderText_Blended_Wrapped(dialogueFont, endingMessage.c_str(), { 255, 255, 255, 255 }, maxWidth);
+        SDL_Texture* messageTexture = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+
+        int xCenter = (1480 - surfaceMessage->w) / 2; // Center horizontally
+        int yCenter = (720 - surfaceMessage->h) / 2; // Center vertically
+        SDL_Rect messageRect = { xCenter, yCenter, surfaceMessage->w, surfaceMessage->h };
+
+        // Define the black background rectangle
+        SDL_Rect backgroundRect = { messageRect.x - 10, messageRect.y - 10, messageRect.w + 20, messageRect.h + 20 };
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black color
+        SDL_RenderFillRect(renderer, &backgroundRect);
+
+        // Render the text over the black background
         SDL_RenderCopy(renderer, messageTexture, NULL, &messageRect);
 
         SDL_FreeSurface(surfaceMessage);
@@ -301,19 +326,46 @@ void ScreenManager::render() {
                     resetButtonSurface->h
                 };
                 SDL_RenderCopy(renderer, resetButtonTexture, NULL, &resetButtonTextRect);
+
             }
             else {
                 // Render talk buttons and clue buttons when not in location selector
                 for (const auto& button : talkButtons) {
-                    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Example: green color for talk button
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black color for button
                     SDL_RenderFillRect(renderer, &button.rect);
-                    // Render talk button label here (if you have one)
+
+                    // Render talk button label in white
+                    SDL_Surface* surfaceLabel = TTF_RenderText_Blended(dialogueFont, button.label.c_str(), { 255, 255, 255, 255 });
+                    SDL_Texture* labelTexture = SDL_CreateTextureFromSurface(renderer, surfaceLabel);
+                    SDL_Rect labelRect = {
+                        button.rect.x + (button.rect.w - surfaceLabel->w) / 2,
+                        button.rect.y + (button.rect.h - surfaceLabel->h) / 2,
+                        surfaceLabel->w,
+                        surfaceLabel->h
+                    };
+                    SDL_RenderCopy(renderer, labelTexture, NULL, &labelRect);
+
+                    SDL_FreeSurface(surfaceLabel);
+                    SDL_DestroyTexture(labelTexture);
                 }
 
                 for (const auto& button : clueButtons) {
-                    SDL_SetRenderDrawColor(renderer, 255, 100, 0, 255); // Example: orange color for clue button
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black color for button
                     SDL_RenderFillRect(renderer, &button.rect);
-                    // Render clue button label here (if you have one)
+
+                    // Render talk button label in white
+                    SDL_Surface* surfaceLabel = TTF_RenderText_Blended(dialogueFont, button.label.c_str(), { 255, 255, 255, 255 });
+                    SDL_Texture* labelTexture = SDL_CreateTextureFromSurface(renderer, surfaceLabel);
+                    SDL_Rect labelRect = {
+                        button.rect.x + (button.rect.w - surfaceLabel->w) / 2,
+                        button.rect.y + (button.rect.h - surfaceLabel->h) / 2,
+                        surfaceLabel->w,
+                        surfaceLabel->h
+                    };
+                    SDL_RenderCopy(renderer, labelTexture, NULL, &labelRect);
+
+                    SDL_FreeSurface(surfaceLabel);
+                    SDL_DestroyTexture(labelTexture);
                 }
 
                 // Render character dialogues if available
@@ -395,9 +447,25 @@ void ScreenManager::render() {
                 }
 
 
-                // Render the back button
-                SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // Example: yellow color for back button
+                // Render the back button with black background
+                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black color for button
                 SDL_RenderFillRect(renderer, &backButton.rect);
+
+                // Render a white left-pointing arrow ("<--") on the back button
+                const char* arrowText = "<-"; // ASCII arrow
+                SDL_Surface* surfaceArrow = TTF_RenderText_Blended(dialogueFont, arrowText, { 255, 255, 255, 255 }); // White color for arrow
+                SDL_Texture* arrowTexture = SDL_CreateTextureFromSurface(renderer, surfaceArrow);
+                SDL_Rect arrowRect = {
+                    backButton.rect.x + (backButton.rect.w - surfaceArrow->w) / 2,
+                    backButton.rect.y + (backButton.rect.h - surfaceArrow->h) / 2,
+                    surfaceArrow->w,
+                    surfaceArrow->h
+                };
+                SDL_RenderCopy(renderer, arrowTexture, NULL, &arrowRect);
+
+                // Clean up
+                SDL_FreeSurface(surfaceArrow);
+                SDL_DestroyTexture(arrowTexture);
 
             }
             // Render backButtonTexture if you have one
@@ -484,4 +552,13 @@ void ScreenManager::goToLocationSelector() {
 void ScreenManager::goToLocation(Screen* locationScreen) {
     currentCharacters.clear(); // Clear the current character dialogues
     currentScreen = locationScreen;
+}
+
+void ScreenManager::loadEndingBackgrounds() {
+    winBackground = TextureManager::LoadTexture("Assets/Backgrounds/win.png", renderer);
+    loseBackground = TextureManager::LoadTexture("Assets/Backgrounds/lose.png", renderer);
+
+    if (!winBackground || !loseBackground) {
+        std::cerr << "Failed to load ending backgrounds" << std::endl;
+    }
 }

@@ -2,7 +2,8 @@
 
 EndingManager::EndingManager(ClueManager& clueManager) : clueManager(clueManager) {}
 
-std::string EndingManager::getEndingMessage(bool playerWins) {
+std::string EndingManager::getEndingMessage(bool playerWins, int maxWidth) {
+    std::string message;
     if (playerWins) {
         return "In the dead of night at " + clueManager.getCurrentScenario().location +
             ",you spot " + clueManager.getCurrentScenario().murderer +

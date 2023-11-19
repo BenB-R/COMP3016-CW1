@@ -7,7 +7,7 @@
 class EndingManager {
 public:
     EndingManager(ClueManager& clueManager);
-    std::string getEndingMessage(bool playerWins);
+    std::string getEndingMessage(bool playerWins, int maxWidth);
 
 private:
     ClueManager& clueManager;

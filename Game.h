@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "AudioHandler.h"
 #include "ScreenManager.h"
 #include "Menu.h"
 
@@ -9,6 +10,8 @@ public:
     Game();
     void initStoryScreen();
     void run();
+
+    AudioHandler* audioHandler;  // Add a pointer to an AudioHandler instance
 
 private:
     SDL_Window* window;

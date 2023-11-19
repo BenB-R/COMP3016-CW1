@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include <iostream>
+#include "SDL_audio.h"
 
 Game::Game() : window(nullptr), renderer(nullptr), screenManager(nullptr), isRunning(true), onMenuScreen(true), onStoryScreen(false), gameEnded(false) {
     init();
@@ -25,7 +26,6 @@ Game::Game() : window(nullptr), renderer(nullptr), screenManager(nullptr), isRun
 void Game::initStoryScreen() {
     // Load the font
     storyFont = TTF_OpenFont("Fonts/slkscr.ttf", 24);
-    // Assuming you've already initialized SDL_ttf with TTF_Init()
     SDL_RenderCopy(renderer, storyTextTexture, NULL, &storyTextRect);
     SDL_Color textColor = { 255, 255, 255, 255 }; // White text
     SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(storyFont, "Your story text here...", textColor, 1080);
@@ -66,6 +66,7 @@ void Game::init() {
 
 
 void Game::run() {
+    //audioHandler->playAudio();  // Start playing the background music
     mainLoop();
 }
 
@@ -78,22 +79,22 @@ void Game::mainLoop() {
             }
 
             if (onMenuScreen) {
+                // Handle menu events
                 menu->handleEvent(event);
                 if (menu->shouldStartGame()) {
                     onMenuScreen = false;
                     onStoryScreen = true;
-                    // Initialize or update story screen if needed
                 }
             }
             else if (onStoryScreen) {
                 // Handle story screen events
                 if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE) {
                     onStoryScreen = false;
-                    // Initialize or reset main game state if needed
                 }
             }
             else {
-                screenManager->handleEvent(event);  // Handle game events
+                // Handle game events
+                screenManager->handleEvent(event);
                 screenManager->update();
             }
         }
@@ -109,7 +110,7 @@ void Game::mainLoop() {
         else {
             screenManager->render();  // Render main game screen
         }
-        
+        /*
         if (gameEnded && event.type == SDL_MOUSEBUTTONDOWN) {
             SDL_Point clickPoint = { event.button.x, event.button.y };
             if (SDL_PointInRect(&clickPoint, &returnToMenuButton.rect)) {
@@ -120,7 +121,7 @@ void Game::mainLoop() {
                 // Reset other necessary game state variables
             }
         }
-
+        */
         SDL_RenderPresent(renderer);
     }
 }
@@ -205,6 +206,10 @@ void Game::cleanUp() {
     if (storyTextTexture) {
         SDL_DestroyTexture(storyTextTexture);
         storyTextTexture = nullptr;
+    }
+    if (audioHandler != nullptr) {
+        delete audioHandler;  // This will stop the audio and clean up resources
+        audioHandler = nullptr;
     }
 
     SDL_Quit();  // Quit SDL

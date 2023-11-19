@@ -25,6 +25,9 @@
     <Filter Include="Resource Files\Fonts">
       <UniqueIdentifier>{be279f58-0105-49ce-9bbb-558675ffc649}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Music">
+      <UniqueIdentifier>{dd9d1206-a60d-461c-9f7a-20cb99862783}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -52,6 +55,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,6 +92,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -145,11 +154,8 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\Music\CW1 3016 idea.mp3">
-      <Filter>Resource Files</Filter>
-    </Media>
-    <Media Include="Assets\Music\CW1 idea 2.mp3">
-      <Filter>Resource Files</Filter>
+    <Media Include="Assets\Music\CW1_idea_2.wav">
+      <Filter>Resource Files\Music</Filter>
     </Media>
   </ItemGroup>
 </Project>

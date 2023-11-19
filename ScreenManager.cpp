@@ -256,11 +256,6 @@ void ScreenManager::render() {
                     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
                     SDL_RenderFillRect(renderer, &button.rect);
 
-                    // Debugging: Log surface and texture creation
-                    std::cout << "Creating surface and texture for button label." << std::endl;
-                    surfaceCount++;
-                    textureCount++;
-
                     // Render button label in white
                     SDL_Surface* surfaceLabel = TTF_RenderText_Blended(dialogueFont, button.linkedScreen->name.c_str(), { 255, 255, 255, 255 });
                     SDL_Texture* labelTexture = SDL_CreateTextureFromSurface(renderer, surfaceLabel);
@@ -272,10 +267,6 @@ void ScreenManager::render() {
                     };
                     SDL_RenderCopy(renderer, labelTexture, NULL, &labelRect);
 
-                    // Debugging: Log surface and texture destruction
-                    std::cout << "Destroying surface and texture for button label." << std::endl;
-                    surfaceCount--;
-                    textureCount--;
 
                     // Clean up
                     SDL_FreeSurface(surfaceLabel);
@@ -293,9 +284,6 @@ void ScreenManager::render() {
                 SDL_FreeSurface(surfaceClueCount);  // Free the surface after creating the texture
                 SDL_DestroyTexture(clueCountTexture);  // Free the texture after rendering
 
-                // Debugging: Log resource counts
-                std::cout << "Active surfaces: " << surfaceCount << ", Active textures: " << textureCount << std::endl;
-                
                 if (timeManager.getCurrentTimeAsString() == "Night") {
                     std::string warningMessage = "Be careful when going out at night,\n"
                         "there is a murderer on the loose.\n"

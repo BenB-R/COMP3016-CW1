@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AudioHandler.cpp" />
     <ClCompile Include="CharacterManager.cpp" />
     <ClCompile Include="ClueManager.cpp" />
     <ClCompile Include="EndingManager.cpp" />
@@ -149,6 +150,7 @@
     <Text Include="ClueInfo.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioHandler.h" />
     <ClInclude Include="CharacterManager.h" />
     <ClInclude Include="ClueManager.h" />
     <ClInclude Include="EndingManager.h" />
@@ -180,8 +182,7 @@
     <Font Include="Fonts\slkscr.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\Music\CW1 3016 idea.mp3" />
-    <Media Include="Assets\Music\CW1 idea 2.mp3" />
+    <Media Include="Assets\Music\CW1_idea_2.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
